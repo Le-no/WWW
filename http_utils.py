@@ -34,7 +34,10 @@ def make_response(status, headers, data):
     header = 'HTTP/1.1 ' + str(status) + ' ' + responses[status] + '\n'
     for h, c in headers.items():
         header += str(h) + ":" + c + "\n"
-    data = '\n' + data
+    header += '\n'
     header = header.encode('utf-8')
-    response = data.encode('utf-8')
+    if isinstance(data, str):
+        response = data.encode('utf-8')
+    else:
+        response = data
     return header, response
